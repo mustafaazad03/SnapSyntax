@@ -48,7 +48,7 @@ export default memo(function Select<
       case "language":
         return <span>{(initialValue as LanguageDefinition).label}</span>;
       case "theme":
-        return <ThemeBubble color={(initialValue as ThemeDefinition).class} />;
+        return <ThemeBubble color={(initialValue as ThemeDefinition)?.class} />;
       case "font":
         return (
           <span

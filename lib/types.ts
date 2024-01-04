@@ -4,10 +4,11 @@ import { Snippet } from "@prisma/client";
 export type ChoiceDefinition = {
   id: string;
   label: string;
-  class: string;
+  class?: string;
 };
 
 export type ThemeDefinition = {
+  class: string;
   id: string;
   label: string;
   baseColors: string[];

@@ -50,5 +50,5 @@ export default async function Home() {
   if (session) {
     redirect("/dashboard");
   }
-  return <Editor editable={true} isAuthenticated={isAuthenticated} />;
+  return <Editor editable={true} isAuthenticated={isAuthenticated} snippetsId={""} snippetStage={""} />;
 }
