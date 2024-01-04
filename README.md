@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SnapSyntax: Online Snippets Maker
 
-## Getting Started
+## Overview
 
-First, run the development server:
+SnapSyntax is an advanced, web-based code editor designed to elevate your coding experience. With a focus on collaboration, customization, and versatility, this platform redefines how developers share, create, and collaborate on code. Built using cutting-edge technologies such as Next.js, Supabase, Typescript, and Prisma, SnapSyntax provides a seamless, feature-rich environment for individuals and teams alike.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+### 1. Real-Time Collaboration
+Effortlessly collaborate with team members in real-time. See changes as they happen, fostering a truly collaborative coding experience.
+
+### 2. Customization Galore
+Tailor the code editor to your preferences with customizable colors, fonts, padding, and more. Your coding environment, your rules.
+
+### 3. Multi-Language Support
+SnapSyntax supports multiple programming languages, making it the ideal platform for developers working on diverse projects.
+
+### 4. Markdown Integration
+Communicate effectively with markdown support. Add comments, documentation, or explanations seamlessly within your code.
+
+### 5. Snippet Collections
+Organize and manage your code snippets efficiently. Create collections for different projects or share them with the community.
+
+### 6. Temporary Notes
+Enhance collaboration by leaving temporary notes for your team members. Provide context, instructions, or insights right where they're needed.
+
+## Tech Stack
+
+- **Next.js**: A React framework for building server-rendered applications, providing a powerful and efficient development experience.
+
+- **Supabase**: A dynamic and scalable open-source alternative to Firebase, offering real-time collaboration and a secure database for seamless data management.
+
+- **Typescript**: Enhance code readability and maintainability with static typing, providing a robust foundation for large-scale applications.
+
+- **Prisma**: A modern database toolkit that simplifies database access and management, ensuring efficient data handling and storage.
+
+## Installation
+
+1. Clone the repository: `git clone https://github.com/mustafaazad03/SnapSyntax-HackHurrican.git`
+2. Navigate to the project directory: `cd SnapSyntax-HackHurrican`
+3. Install dependencies: `npm install or yarn`
+4. Set up environmental variables for Supabase and Prisma configurations.
+6. Run the development server: `npm run dev`
+
+## Configuration
+
+To run the project, you need to set up the following environment variables. Create a `.env` file in the root directory and add the following information:
+
+```env
+DATABASE_URL=your_database_url
+SUPABASE_PASSWORD=your_supabase_password
+SUPABASE_NAME=your_supabase_name
+GITHUB_ID=your_github_id
+GITHUB_SECRET=your_github_secret
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contact
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For inquiries or support, please contact us at (https://www.linkedin.com/in/mustafaazad03)[https://www.linkedin.com/in/mustafaazad03].
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Happy coding with SnapSyntax! 🚀
