@@ -1,6 +1,7 @@
 'use client';
 import { cn } from "@/lib/cn";
 import { prisma } from "@/lib/prisma";
+import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 
 export default function Views({
@@ -13,6 +14,7 @@ export default function Views({
   snippetStage: string;
 }) {
   const [isPublic, setIsPublic] = useState(snippetStage === "public");
+  const session = useSession();
 
   useEffect(() => {
     // Update the state when the snippetStage prop changes
@@ -43,6 +45,7 @@ export default function Views({
       <div className={cn("absolute left-6 top-6 text-xs text-greyish/80")}>
         {views.toLocaleString() ?? "?"} views
       </div>
+      {session.data?.user && (
       <div className={cn("absolute right-6 top-6 text-xs text-greyish/80")}>
         <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
           <input
@@ -62,6 +65,7 @@ export default function Views({
           {snippetStage}
         </label>
       </div>
+      )}
     </>
   );
 }

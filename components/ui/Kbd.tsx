@@ -9,7 +9,7 @@ export default function Kbd({ keys }: { keys: string[] }) {
           <kbd
             className={cn(
               "flex h-6 items-center justify-center rounded-[4px] px-2 font-medium",
-              "bg-white/20"
+              "bg-white text-black"
             )}
           >
             {key}

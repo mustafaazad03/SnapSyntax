@@ -15,7 +15,7 @@ export default function Header() {
 		<header
 			className={cn(
 				"sticky top-0 z-40 flex h-16 items-center justify-between px-[18px] font-medium",
-				"border-b border-white/20 bg-black shadow-xl shadow-black/40"
+				"border-b border-white bg-black shadow-xl shadow-black/40"
 			)}
 		>
 			<Link href="/">
