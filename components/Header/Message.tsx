@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 import { usePathname } from "next/navigation";
-import { Message } from "@/lib/types";
 import { Check, X, Code } from "lucide-react";
 import Loader from "../ui/Loader";
 import { cn } from "@/lib/cn";
 import { AnimatePresence, motion } from "framer-motion";
+import type { Message } from "@/lib/types";
 
 interface ContentState {
   id: string;
