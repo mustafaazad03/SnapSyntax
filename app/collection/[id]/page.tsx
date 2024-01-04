@@ -1,15 +1,13 @@
-import { Menu, Transition } from "@headlessui/react";
-import { CircleEllipsisIcon } from "lucide-react";
 import Image from "next/image";
-import { Fragment } from "react";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "next-auth/react";
+import ModelAddSnippets from "@/components/Collection/ModelAddSnippets";
 
 function classNames(...classes: any[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
-interface collectionSnippets {
+export interface collectionSnippets {
 	id: string;
 	title: string | null;
 	code: string | null;
@@ -34,147 +32,107 @@ const fetchCollection = async (id: string) => {
 
 export default async function Page({ params }: { params: { id: string } }) {
 	const collection = await fetchCollection(params.id);
-	const session = await getSession();
 	const fetchSnippet = async () => {
+		const session = await getSession();
 		return await prisma.snippet.findMany({
 			where: { id: session?.user.id, stage: "public" },
 		});
 	};
 	const snippets = await fetchSnippet();
 	return (
-		<div className="bg-white py-24 sm:py-32">
-			<div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-12 px-6 sm:gap-y-16 lg:grid-cols-2 lg:px-8">
-				<article className="mx-auto w-full max-w-2xl lg:mx-0 lg:max-w-lg">
-					<time
-						dateTime={collection?.createdAt.getDate().toString()}
-						className="block text-sm leading-6 text-gray-600"
-					>
-						{collection?.createdAt.getDate().toString().slice(0, 15)}
-					</time>
-					<h2
-						id="page-title"
-						className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-					>
-						{collection?.name}
-					</h2>
-					<p className="mt-4 text-lg leading-8 text-gray-600">
-						{collection?.description}
-					</p>
-					<div className="mt-4 flex flex-col justify-between gap-6 sm:mt-8 sm:flex-row-reverse sm:gap-8 lg:mt-4 lg:flex-col">
-						{/* button for adding multiple snippets to collection */}
-						{collection?.userId.toString() === session?.user.id ? (
-							<button
-								onClick={async () => {
-									await fetch(`/api/collection/`, {
-										method: "POST",
-										body: JSON.stringify({
-											collectionId: collection?.id,
-											snippets: snippets,
-										}),
-									});
-									window === undefined ? null : window.location.reload();
-								}}
-								className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 md:py-4 md:text-lg md:px-10"
-							>
-								Add snippet
-							</button>
-						) : null}
-						<div className="flex lg:border-t lg:border-gray-900/10 lg:pt-8">
-							<div className="flex gap-x-2.5 text-sm font-semibold leading-6 text-gray-900">
-								{collection?.userId.toString() === session?.user.id ? (
-									<p className="text-gray-900">You</p>
-								) : (
-									<p className="text-gray-900">{collection?.user?.name}</p>
-								)}
+		<div className="max-w-[85rem] h-[90vh] px-4 py-10 sm:px-6 lg:px-8 lg:py-6 mx-auto">
+			<div className="relative p-6 md:p-16 md:py-10">
+				<div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+					<div className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
+						<h2 className="text-2xl text-gray-800 font-bold sm:text-3xl dark:text-gray-200">
+							Collection Name : {collection?.name}
+						</h2>
+
+						<nav className="grid gap-4 mt-5 md:mt-10">
+							<ModelAddSnippets />
+							{snippets.length === 0 ? (
+								<div className="text-gray-800 text-center dark:text-gray-200">
+									No Snippets Found
+								</div>
+							) : (
+								snippets.map((snippet: collectionSnippets) => (
+									<button
+										key={snippet.id}
+										type="button"
+										className="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-slate-900 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 active"
+										id="tabs-with-card-item-1"
+										data-hs-tab="#tabs-with-card-1"
+										aria-controls="tabs-with-card-1"
+										role="tab"
+									>
+										<span className="flex">
+											<span className="grow ms-6">
+												<span className="block text-lg font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200">
+													{snippet.title}
+												</span>
+												<span className="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200">
+													{snippet.language}
+												</span>
+												<span className="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200">
+													{snippet.lineNumbers}
+												</span>
+											</span>
+										</span>
+									</button>
+								))
+							)}
+						</nav>
+					</div>
+
+					<div className="lg:col-span-6">
+						<div className="relative">
+							<div>
+								<div>
+									<Image
+										width={500}
+										height={500}
+										className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/[.2]"
+										src="https://images.unsplash.com/photo-1605629921711-2f6b00c6bbf4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&h=1220&q=80"
+										alt="Image Description"
+									/>
+								</div>
+							</div>
+
+							<div className="hidden absolute top-0 end-0 translate-x-20 md:block lg:translate-x-20">
+								<svg
+									className="w-16 h-auto text-primary"
+									width="121"
+									height="135"
+									viewBox="0 0 121 135"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M5 16.4754C11.7688 27.4499 21.2452 57.3224 5 89.0164"
+										stroke="currentColor"
+										strokeWidth="10"
+										strokeLinecap="round"
+									/>
+									<path
+										d="M33.6761 112.104C44.6984 98.1239 74.2618 57.6776 83.4821 5"
+										stroke="currentColor"
+										strokeWidth="10"
+										strokeLinecap="round"
+									/>
+									<path
+										d="M50.5525 130C68.2064 127.495 110.731 117.541 116 78.0874"
+										stroke="currentColor"
+										strokeWidth="10"
+										strokeLinecap="round"
+									/>
+								</svg>
 							</div>
 						</div>
 					</div>
-				</article>
-				<div className="mx-auto w-full max-w-2xl border-t border-gray-900/10 pt-12 sm:pt-16 lg:mx-0 lg:max-w-none lg:border-t-0 lg:pt-0">
-					<ul role="list" className="divide-y divide-gray-100">
-						{collection?.snippets?.map((snippet: collectionSnippets) => (
-							<li
-								key={snippet.id}
-								className="flex items-center justify-between gap-x-6 py-5"
-							>
-								<div className="min-w-0">
-									<div className="flex items-start gap-x-3">
-										<p className="text-sm font-semibold leading-6 text-gray-900">
-											{snippet?.title}
-										</p>
-									</div>
-								</div>
-								<div className="flex flex-none items-center gap-x-4">
-									<a
-										href={`/${snippet.id}`}
-										className="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
-									>
-										View snippet
-										<span className="sr-only">, {snippet.title}</span>
-									</a>
-									<Menu as="div" className="relative flex-none">
-										<Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
-											<span className="sr-only">Open options</span>
-											<CircleEllipsisIcon
-												className="h-5 w-5"
-												aria-hidden="true"
-											/>
-										</Menu.Button>
-										<Transition
-											as={Fragment}
-											enter="transition ease-out duration-100"
-											enterFrom="transform opacity-0 scale-95"
-											enterTo="transform opacity-100 scale-100"
-											leave="transition ease-in duration-75"
-											leaveFrom="transform opacity-100 scale-100"
-											leaveTo="transform opacity-0 scale-95"
-										>
-											<Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-												{/* <Menu.Item>
-													{({ active }) => (
-														<a
-															href="#"
-															className={classNames(
-																active ? "bg-gray-50" : "",
-																"block px-3 py-1 text-sm leading-6 text-gray-900"
-															)}
-														>
-															Edit
-															<span className="sr-only">, {snippet.title}</span>
-														</a>
-													)}
-												</Menu.Item> */}
-												<Menu.Item>
-													{({ active }) => (
-														<button
-															onClick={async () => {
-																await fetch(`/api/removeSnippet/`, {
-																	method: "DELETE",
-																	body: JSON.stringify({
-																		id: snippet.id,
-																	}),
-																});
-																window === undefined
-																	? null
-																	: window.location.reload();
-															}}
-															className={classNames(
-																active ? "bg-gray-50" : "",
-																"block px-3 py-1 text-sm leading-6 text-gray-900"
-															)}
-														>
-															Delete
-															<span className="sr-only">, {snippet.title}</span>
-														</button>
-													)}
-												</Menu.Item>
-											</Menu.Items>
-										</Transition>
-									</Menu>
-								</div>
-							</li>
-						))}
-					</ul>
+				</div>
+
+				<div className="absolute inset-0 grid grid-cols-12 w-full h-full">
+					<div className="col-span-full lg:col-span-7 lg:col-start-6 bg-gray-100 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full dark:bg-white/[.075]"></div>
 				</div>
 			</div>
 		</div>

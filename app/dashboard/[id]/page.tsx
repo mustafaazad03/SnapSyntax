@@ -88,6 +88,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 					views={views?.count}
 					editable={editable}
 					isAuthenticated={isAuthenticated}
+					snippetsId={snippet.id}
+					snippetStage={snippet.stage}
 				/>
 			</div>
 		</>

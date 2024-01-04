@@ -6,13 +6,13 @@ export default function Social() {
   const links = [
     {
       id: "github",
-      href: "",
+      href: "https://github.com/mustafaazad03",
       icon: (props: LucideProps) => <Github {...props} aria-hidden="true" />,
       label: "Github",
     },
     {
       id: "twitter",
-      href: "",
+      href: "https://twitter.com/mustafaazad03",
       icon: (props: LucideProps) => <Twitter {...props} aria-hidden="true" />,
       label: "Twitter",
     },
@@ -31,7 +31,7 @@ export default function Social() {
               "rounded-kg p-2",
               "select-none outline-none",
               "transition-all duration-100 ease-in-out",
-              "hover:cursor-ne-resize hover:bg-white/20 hover:text-almost-white",
+              "cursor-pointer hover:bg-white/20 hover:text-almost-white",
               "focus:text-almost-white focus:outline-1 focus:outline-offset-2 focus:outline-almost-white"
             )}
             aria-label={`social-link-${id}`}

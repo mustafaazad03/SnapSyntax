@@ -1,3 +1,4 @@
+import { CollectionCard } from "@/components/Collection/CollectionCard";
 import HeroSection from "@/components/Collection/HeroSection";
 const collection = () => {
 	return (
@@ -7,6 +8,7 @@ const collection = () => {
 				title="Find Collections Globally"
 				textcolor="text-white"
 			/>
+			<CollectionCard/>
 		</div>
 	);
 };
